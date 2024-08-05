@@ -31,7 +31,10 @@ export function LectureForm() {
   const formSchema = z.object({
     lecture: z.string().url("La URL debe ser un enlace válido"),
     apiKey: z.string().min(1, "La clave de API no puede estar vacía"),
-    numberOfQuestions: z.coerce.number().min(1).max(10),
+    numberOfQuestions: z.coerce
+      .number()
+      .min(1, "El mínimo de preguntas permitido es 1")
+      .max(10, "El máximo de preguntas permitido es 10"),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
