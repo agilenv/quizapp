@@ -16,9 +16,7 @@ export default function ScorePage() {
         lecture={quiz.getLecture()}
         onPlayAgain={() => {
           playAgain().then((newQuiz) => {
-            loadQuiz(newQuiz.getId()).then((quizId) => {
-              router.push(`/quizzes/${newQuiz.getId()}`);
-            });
+            router.push(`/quizzes/${newQuiz.getId()}`);
           });
         }}
       />
