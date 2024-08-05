@@ -15,11 +15,17 @@ import { Button } from "@/components/ui/button";
 import { useQuiz } from "@/context/QuizContext";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import { useEffect } from "react";
 
 export function LectureForm() {
   const { generateFromLink, apiKey } = useQuiz();
   const router = useRouter();
   const { toast } = useToast();
+  const { flush } = useQuiz();
+
+  useEffect(() => {
+    flush();
+  }, []);
 
   const formSchema = z.object({
     lecture: z.string().url("La URL debe ser un enlace válido"),

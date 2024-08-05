@@ -21,6 +21,7 @@ interface QuizContextProps {
   ) => Promise<Quiz>;
   apiKey: string;
   playAgain: () => Promise<Quiz>;
+  flush: () => Promise<void>;
 }
 
 const QuizContext = createContext<QuizContextProps | undefined>(undefined);
@@ -75,6 +76,12 @@ export const QuizProvider: React.FC<{
     return await playAgainUsecase.execute(quiz);
   };
 
+  const flush = async (): Promise<void> => {
+    quizRepository.findAll().then((quizzes) => {
+      quizzes.forEach((quiz) => quizRepository.delete(quiz.getId()));
+    });
+  };
+
   return (
     <QuizContext.Provider
       value={{
@@ -85,6 +92,7 @@ export const QuizProvider: React.FC<{
         generateFromLink,
         apiKey,
         playAgain,
+        flush,
       }}
     >
       {children}
