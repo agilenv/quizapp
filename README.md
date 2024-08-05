@@ -4,6 +4,8 @@ Una aplicación que genera cuestionarios con inteligencia artificial a partir de
 
 Las preguntas son de opción múltiple con una sola respuesta correcta y, al finalizar, muestra un puntaje basado en la cantidad de preguntas correctas.
 
+![quizapp_demo](https://github.com/user-attachments/assets/90d3ffe9-2743-443e-8b69-4705299ac8e0)
+
 ## Características
 
 - **Generación de Preguntas**: Utiliza el modelo `GPT-4o-mini` de OpenAI para generar preguntas relevantes a partir de cualquier artículo web.
