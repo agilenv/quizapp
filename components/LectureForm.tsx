@@ -65,7 +65,7 @@ export function LectureForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit, onError)}
-        className="flex flex-col gap-4 mt-10 max-w-3xl mx-auto"
+        className="flex flex-col gap-4 mt-6 max-w-3xl mx-auto"
       >
         <FormField
           name="apiKey"
@@ -111,7 +111,7 @@ export function LectureForm() {
                     min={1}
                     max={10}
                     {...field}
-                    className="w-16 border-gray-300 rounded-md shadow-sm"
+                    className="w-16 border-gray-300 rounded-md shadow-sm text-center"
                   />
                 </FormControl>
               </FormItem>
