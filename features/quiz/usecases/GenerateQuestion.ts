@@ -12,29 +12,29 @@ import { Prompter } from "@/features/quiz/domain/Prompter";
 
 export default class GenerateQuestion {
   public async execute(apiKey: string, quiz: Quiz): Promise<Question> {
-    if (quiz.meetSpecification()) {
-      const prompts: Prompter[] = [
-        LecturePrompterFactory.create(quiz.getLecture()),
-        QuestionPrompterFactory.create(
-          quiz.getSpecification().getQuestionTypes(),
-        ),
-      ];
-      if (quiz.questionsGenerated() > 0) {
-        const questions: string[] = quiz
-          .getAllQuestions()
-          .map((q) => q.getText());
-        prompts.push(
-          new CustomPrompter(
-            `No repitas las siguientes preguntas: ${questions.join(", ")}`,
-          ),
-        );
-      }
-      const srv = new AIService();
-      const res = await srv.generate(apiKey, prompts);
-      const data = await res.json();
-      return QuestionFactory.createFromData(data);
+    if (!quiz.meetSpecification()) {
+      throw new Error("Quiz is complete");
     }
-    throw new Error("Quiz is complete");
+    const prompts: Prompter[] = [
+      LecturePrompterFactory.create(quiz.getLecture()),
+      QuestionPrompterFactory.create(
+        quiz.getSpecification().getQuestionTypes(),
+      ),
+    ];
+    if (quiz.questionsGenerated() > 0) {
+      const questions: string[] = quiz
+        .getAllQuestions()
+        .map((q) => q.getText());
+      prompts.push(
+        new CustomPrompter(
+          `No repitas las siguientes preguntas: ${questions.join(", ")}`,
+        ),
+      );
+    }
+    const srv = new AIService();
+    const res = await srv.generate(apiKey, prompts);
+    const data = await res.json();
+    return QuestionFactory.createFromData(data);
   }
 
   private async mock(): Promise<Question> {
