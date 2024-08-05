@@ -62,13 +62,19 @@ export default function MultipleChoiceQuestion({
         ))}
       </div>
       <div className="w-[100%] flex flex-row gap-6 justify-around">
-        <Button variant="secondary" className={`w-full max-w-xs`} asChild>
+        <Button
+          variant="secondary"
+          size="lg"
+          className={`w-full max-w-xs`}
+          asChild
+        >
           <Link href="/">Volver al inicio</Link>
         </Button>
         <Button
           onClick={handleNextQuestion}
           className={`w-full max-w-xs ${!isAnswered} ? "cursor-not-allowed" : ""`}
           disabled={!isAnswered}
+          size="lg"
         >
           {currentNumberOfQuestions + 1 === totalQuestions
             ? "Finalizar"

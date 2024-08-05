@@ -141,10 +141,10 @@ export function Rank({
             {getMessageForScore(score)}
           </div>
           <div className="mt-16 flex flex-row gap-6">
-            <Button variant={"secondary"} onClick={onPlayAgain}>
+            <Button size="lg" variant={"secondary"} onClick={onPlayAgain}>
               Probar de nuevo
             </Button>
-            <Button asChild>
+            <Button size="lg" asChild>
               <Link href="/">Volver al inicio</Link>
             </Button>
           </div>

@@ -120,6 +120,7 @@ export function LectureForm() {
           <Button
             className="w-48 bg-orange-500 text-white rounded-md py-2 hover:bg-orange-600 transition-colors duration-300"
             type="submit"
+            size="lg"
           >
             Generar!
           </Button>
