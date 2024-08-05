@@ -12,7 +12,7 @@ class AIService {
     });
 
     const result = await generateObject({
-      model: openai("gpt-4o"),
+      model: openai("gpt-4o-mini"),
       schema: z.object({
         type: z.string().describe("El tipo de pregunta."),
         text: z.string().describe("El texto de la pregunta."),

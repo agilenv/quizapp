@@ -4,7 +4,7 @@ Una aplicación que genera cuestionarios con inteligencia artificial a partir de
 
 ## Características
 
-- **Generación de Preguntas**: Utiliza el modelo GPT-4o de OpenAI para generar preguntas relevantes a partir de cualquier artículo web.
+- **Generación de Preguntas**: Utiliza el modelo `GPT-4o-mini` de OpenAI para generar preguntas relevantes a partir de cualquier artículo web.
 - **Evaluación Automática**: Proporciona una evaluación inmediata y muestra un puntaje al finalizar el cuestionario.
 - **Interfaz Intuitiva**: Fácil de usar, permite a los usuarios generar y completar cuestionarios rápidamente.
 
@@ -14,4 +14,4 @@ Una aplicación que genera cuestionarios con inteligencia artificial a partir de
 
 ## Enlace
 
-Puedes acceder a la versión desplegada de la aplicación en el siguiente enlace: [Quiz App](https://quizapp.vercel.app).
+Puedes acceder a la versión desplegada de la aplicación en el siguiente enlace: [Quiz App](https://quizapp-beta-ten.vercel.app).
