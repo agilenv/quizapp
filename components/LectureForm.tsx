@@ -15,13 +15,14 @@ import { Button } from "@/components/ui/button";
 import { useQuiz } from "@/context/QuizContext";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export function LectureForm() {
   const { generateFromLink, apiKey } = useQuiz();
   const router = useRouter();
   const { toast } = useToast();
   const { flush } = useQuiz();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     flush();
@@ -43,6 +44,7 @@ export function LectureForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsLoading(true);
     generateFromLink(
       values.apiKey,
       values.lecture,
@@ -121,6 +123,7 @@ export function LectureForm() {
             className="w-48 bg-orange-500 text-white rounded-md py-2 hover:bg-orange-600 transition-colors duration-300"
             type="submit"
             size="lg"
+            disabled={isLoading}
           >
             Generar!
           </Button>
