@@ -7,7 +7,7 @@ export const GET = async (req: NextRequest) => {
       return new Response("Missing URL", { status: 400 });
     }
 
-    const response = await fetch(url);
+    const response = await fetch(url, { next: { revalidate: 3600 } });
     const html = await response.text();
     const match = html.match(/<title[^>]*>([^<]*)<\/title>/i);
     const title = match ? match[1] : url;
