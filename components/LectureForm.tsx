@@ -65,7 +65,7 @@ export function LectureForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit, onError)}
-        className="flex flex-col gap-4 mt-10"
+        className="flex flex-col gap-4 mt-10 max-w-3xl mx-auto"
       >
         <FormField
           name="apiKey"
