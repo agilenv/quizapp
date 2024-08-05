@@ -43,7 +43,7 @@ export default function MultipleChoiceQuestion({
   };
 
   return (
-    <div className="flex flex-col h-screen p-6 space-y-6 w-full max-w-4xl">
+    <div className="flex flex-col p-6 space-y-6 w-full max-w-4xl overflow-auto">
       <h1 className="text-2xl font-bold text-center text-gray-800">
         {question}
       </h1>
@@ -61,18 +61,18 @@ export default function MultipleChoiceQuestion({
           </div>
         ))}
       </div>
-      <div className="w-[100%] flex flex-row gap-6 justify-around">
+      <div className="w-[100%] flex flex-col items-center md:flex-row flex-wrap my-6 gap-6 md:justify-around">
         <Button
           variant="outline"
           size="lg"
-          className={`w-full max-w-xs`}
+          className={`w-full max-w-xs order-2 md:order-1`}
           asChild
         >
           <Link href="/">Volver al inicio</Link>
         </Button>
         <Button
           onClick={handleNextQuestion}
-          className={`w-full max-w-xs ${!isAnswered} ? "cursor-not-allowed" : ""`}
+          className={`w-full max-w-xs order-1 md:order-2 ${!isAnswered} ? "cursor-not-allowed" : ""`}
           disabled={!isAnswered}
           size="lg"
         >
@@ -82,14 +82,12 @@ export default function MultipleChoiceQuestion({
         </Button>
       </div>
       {isAnswered && (
-        <div className="p-4 bg-gray-100 rounded-lg w-full text-center">
-          <p className="font-bold text-red-600">
+        <div className="p-4 bg-gray-100 rounded-lg w-full text-center my-6">
             {isCorrect ? (
               <p className="font-bold text-green-600">¡Correcto!</p>
             ) : (
               <p className="font-bold text-red-600">Incorrecto!</p>
             )}
-          </p>
           <p>{correctAnswer.getReason()}</p>
         </div>
       )}
