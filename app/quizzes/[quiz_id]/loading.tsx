@@ -2,17 +2,17 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Loading() {
   return (
-    <div className="flex flex-col items-center p-6 space-y-6 bg-white w-full max-w-4xl">
-      <Skeleton className="h-[100px] w-[850px] rounded-xl" />
+    <div className="w-full space-y-6 p-6 max-w-4xl">
+      <Skeleton className="h-28 w-full rounded-lg" />
       <div className="space-y-2">
-        <Skeleton className="h-12 w-[850px]" />
-        <Skeleton className="h-12 w-[850px]" />
-        <Skeleton className="h-12 w-[850px]" />
-        <Skeleton className="h-12 w-[850px]" />
+        <Skeleton className="h-14 w-full" />
+        <Skeleton className="h-14 w-full" />
+        <Skeleton className="h-14 w-full" />
+        <Skeleton className="h-14 w-full" />
       </div>
-      <div className="flex flex-row gap-6 justify-around w-full">
-        <Skeleton className="h-12 w-[250px]" />
-        <Skeleton className="h-12 w-[250px]" />
+      <div className="flex flex-row justify-around w-full">
+        <Skeleton className="h-12 w-1/3" />
+        <Skeleton className="h-12 w-1/3" />
       </div>
     </div>
   );

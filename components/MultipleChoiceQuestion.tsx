@@ -63,7 +63,7 @@ export default function MultipleChoiceQuestion({
       </div>
       <div className="w-[100%] flex flex-row gap-6 justify-around">
         <Button
-          variant="secondary"
+          variant="outline"
           size="lg"
           className={`w-full max-w-xs`}
           asChild

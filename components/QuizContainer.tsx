@@ -49,7 +49,7 @@ const QuizContainer = () => {
       {isLoading || quiz === null ? (
         <Loading />
       ) : (
-        <div className="">
+        <>
           {question instanceof MC ? (
             <MultipleChoiceQuestion
               question={question.getText()}
@@ -61,7 +61,7 @@ const QuizContainer = () => {
               currentNumberOfQuestions={quiz?.questionsGenerated()}
             />
           ) : null}
-        </div>
+        </>
       )}
     </>
   );
