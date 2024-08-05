@@ -83,11 +83,11 @@ export default function MultipleChoiceQuestion({
       </div>
       {isAnswered && (
         <div className="p-4 bg-gray-100 rounded-lg w-full text-center my-6">
-            {isCorrect ? (
-              <p className="font-bold text-green-600">¡Correcto!</p>
-            ) : (
-              <p className="font-bold text-red-600">Incorrecto!</p>
-            )}
+          {isCorrect ? (
+            <p className="font-bold text-green-600">¡Correcto!</p>
+          ) : (
+            <p className="font-bold text-red-600">Incorrecto!</p>
+          )}
           <p>{correctAnswer.getReason()}</p>
         </div>
       )}
