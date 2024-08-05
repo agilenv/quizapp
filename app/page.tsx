@@ -6,11 +6,11 @@ import { Separator } from "@/components/ui/separator";
 export default function Home() {
   return (
     <div className="bg-gray-100 h-svh flex flex-col overflow-y-auto">
-      <div className="flex flex-col h-full justify-center gap-6 mx-auto p-6 bg-white w-full flex-2">
+      <div className="flex flex-col h-full justify-center gap-6 mx-auto px-6 py-16 bg-white w-full flex-1">
         <header className="flex flex-col gap-6 justify-center items-center">
           <Logo />
-          <div className="text-gray-500 text-center leading-7">
-            <h1 className="text-gray-500 text-center leading-7">
+          <div className="text-gray-500 text-center leading-7 text-balance">
+            <h1>
               Crea cuestionarios con inteligencia artificial a partir de
               artículos web de forma rápida y precisa.
             </h1>
@@ -21,7 +21,7 @@ export default function Home() {
           <LectureForm />
         </main>
       </div>
-      <footer className={"flex-1"}>
+      <footer className={"flex-grow-0"}>
         <Separator />
         <Guideness />
       </footer>

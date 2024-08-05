@@ -2,7 +2,7 @@ export default function Guideness() {
   return (
     <article className="my-10 px-6 text-sm items-center flex flex-col text-gray-700 text-center">
       <header className="mb-4">
-        <h2 className="font-bold text-md pb-2">
+        <h2 className="font-bold text-md">
           Sugerencias para obtener buenos resultados
         </h2>
       </header>
