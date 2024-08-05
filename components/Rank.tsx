@@ -79,17 +79,19 @@ export function Rank({
     title && (
       <Card className="flex flex-col border-0 shadow-none">
         <CardHeader className="items-center pb-0">
-          <CardTitle>
+          <CardTitle className="text-center leading-8 hover:text-blue-800">
             <Link href={link} target="_blank" rel="noreferrer noopener">
               {title}
             </Link>
           </CardTitle>
-          <CardDescription>Resultados del cuestionario</CardDescription>
+          <CardDescription className={"py-2"}>
+            Resultado del cuestionario
+          </CardDescription>
         </CardHeader>
         <CardContent className="flex-1 pb-0">
           <ChartContainer
             config={chartConfig}
-            className="mx-auto aspect-square max-h-[400px]"
+            className="mx-auto aspect-square max-h-[300px]"
           >
             <PieChart>
               <ChartTooltip
@@ -100,7 +102,7 @@ export function Rank({
                 data={chartData}
                 dataKey="num"
                 nameKey="category"
-                innerRadius={110}
+                innerRadius={90}
                 strokeWidth={1}
               >
                 <Label
@@ -137,14 +139,19 @@ export function Rank({
           </ChartContainer>
         </CardContent>
         <CardFooter className="flex-col gap-6 text-sm">
-          <div className="flex items-center gap-2 font-medium leading-none">
+          <div className="flex items-center text-center px-8 gap-2 font-medium leading-none">
             {getMessageForScore(score)}
           </div>
-          <div className="mt-16 flex flex-row gap-6">
-            <Button size="lg" variant={"secondary"} onClick={onPlayAgain}>
+          <div className="my-4 flex flex-col md:flex-row gap-6">
+            <Button
+              size="lg"
+              className={"order-2 md:order-1"}
+              variant={"secondary"}
+              onClick={onPlayAgain}
+            >
               Probar de nuevo
             </Button>
-            <Button size="lg" asChild>
+            <Button size="lg" className={"order-1 md:order-2"} asChild>
               <Link href="/">Volver al inicio</Link>
             </Button>
           </div>
