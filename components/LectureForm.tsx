@@ -31,7 +31,9 @@ export function LectureForm() {
     if (searchParams.has("errors")) {
       toast({
         variant: "destructive",
-        title: "Comprueba la API key proporcionada y vuelve a intentarlo",
+        title: "Ups! Algo salió mal",
+        description:
+          "Comprueba la clave de API proporcionada y vuelve a intentarlo",
       });
     }
   }, [searchParams]);
