@@ -1,5 +1,5 @@
+"use client";
 import * as React from "react";
-import { TrendingUp } from "lucide-react";
 import { Label, Pie, PieChart } from "recharts";
 
 import {
@@ -16,11 +16,12 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { useQuiz } from "@/context/QuizContext";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Lecture, LinkLecture } from "@/features/quiz/domain/lectures";
+import { LectureTitle } from "@/components/LectureTitle";
+import { ScoreMessage } from "@/components/ScoreMessage";
 
 export function Rank({
   numOfCorrectAnswers,
@@ -35,7 +36,6 @@ export function Rank({
   lecture: Lecture;
   onPlayAgain: () => void;
 }) {
-  const [title, setTitle] = useState<string>();
   const [link, setLink] = useState<string>("");
 
   const chartData = [
@@ -62,102 +62,83 @@ export function Rank({
     },
   } satisfies ChartConfig;
 
-  useEffect(() => {
-    if (lecture instanceof LinkLecture) {
-      setLink(lecture.getLink());
-      fetch(`/api/metadata?url=${lecture.getLink()}`).then((response) => {
-        response.json().then((data) => {
-          setTitle(data.title);
-        });
-      });
-    } else {
-      setTitle(lecture.getId());
-    }
-  }, [lecture]);
-
   return (
-    title && (
-      <Card className="flex flex-col border-0 shadow-none">
-        <CardHeader className="items-center pb-0">
-          <CardTitle className="text-center leading-8 hover:text-blue-800">
-            <Link href={link} target="_blank" rel="noreferrer noopener">
-              {title}
-            </Link>
-          </CardTitle>
-          <CardDescription className={"py-2"}>
-            Resultado del cuestionario
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="flex-1 pb-0">
-          <ChartContainer
-            config={chartConfig}
-            className="mx-auto aspect-square max-h-[300px]"
-          >
-            <PieChart>
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent hideLabel />}
-              />
-              <Pie
-                data={chartData}
-                dataKey="num"
-                nameKey="category"
-                innerRadius={90}
-                strokeWidth={1}
-              >
-                <Label
-                  content={({ viewBox }) => {
-                    if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                      return (
-                        <text
+    <Card className="flex flex-col border-0 shadow-none">
+      <CardHeader className="items-center pb-0">
+        <CardTitle className="text-center leading-8 hover:text-blue-800">
+          <LectureTitle link={(lecture as LinkLecture).getLink()} />
+        </CardTitle>
+        <CardDescription className={"py-2"}>
+          Resultado del cuestionario
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="flex-1 pb-0">
+        <ChartContainer
+          config={chartConfig}
+          className="mx-auto aspect-square max-h-[300px]"
+        >
+          <PieChart>
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent hideLabel />}
+            />
+            <Pie
+              data={chartData}
+              dataKey="num"
+              nameKey="category"
+              innerRadius={90}
+              strokeWidth={1}
+            >
+              <Label
+                content={({ viewBox }) => {
+                  if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                    return (
+                      <text
+                        x={viewBox.cx}
+                        y={viewBox.cy}
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                      >
+                        <tspan
                           x={viewBox.cx}
                           y={viewBox.cy}
-                          textAnchor="middle"
-                          dominantBaseline="middle"
+                          className="fill-foreground text-3xl font-bold"
                         >
-                          <tspan
-                            x={viewBox.cx}
-                            y={viewBox.cy}
-                            className="fill-foreground text-3xl font-bold"
-                          >
-                            {score.toLocaleString()}
-                          </tspan>
-                          <tspan
-                            x={viewBox.cx}
-                            y={(viewBox.cy || 0) + 24}
-                            className="fill-muted-foreground"
-                          >
-                            Puntaje
-                          </tspan>
-                        </text>
-                      );
-                    }
-                  }}
-                />
-              </Pie>
-            </PieChart>
-          </ChartContainer>
-        </CardContent>
-        <CardFooter className="flex-col gap-6 text-sm">
-          <div className="flex items-center text-center px-8 gap-2 font-medium leading-none">
-            {getMessageForScore(score)}
-          </div>
-          <div className="my-4 flex flex-col md:flex-row gap-6">
-            <Button
-              size="lg"
-              className={"order-2 md:order-1"}
-              variant={"secondary"}
-              onClick={onPlayAgain}
-            >
-              Probar de nuevo
-            </Button>
-            <Button size="lg" className={"order-1 md:order-2"} asChild>
-              <Link href="/">Volver al inicio</Link>
-            </Button>
-          </div>
-        </CardFooter>
-      </Card>
-    )
+                          {score.toLocaleString()}
+                        </tspan>
+                        <tspan
+                          x={viewBox.cx}
+                          y={(viewBox.cy || 0) + 24}
+                          className="fill-muted-foreground"
+                        >
+                          Puntaje
+                        </tspan>
+                      </text>
+                    );
+                  }
+                }}
+              />
+            </Pie>
+          </PieChart>
+        </ChartContainer>
+      </CardContent>
+      <CardFooter className="flex-col gap-6 text-sm">
+        <ScoreMessage score={score} />
+        <div className="my-4 flex flex-col md:flex-row gap-6">
+          <Button
+            size="lg"
+            className={"order-2 md:order-1"}
+            variant={"secondary"}
+            onClick={onPlayAgain}
+          >
+            Probar de nuevo
+          </Button>
+          <Button size="lg" className={"order-1 md:order-2"} asChild>
+            <Link href="/">Volver al inicio</Link>
+          </Button>
+        </div>
+      </CardFooter>
+    </Card>
   );
 }
 
