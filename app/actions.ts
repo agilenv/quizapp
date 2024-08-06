@@ -11,7 +11,7 @@ export async function getScoreNotes(
 ) {
   "use server";
 
-  let prompt = `Genera un título para el siguiente artículo ${link} `;
+  let prompt = `Genera un título de máximo 10 palabras para el siguiente artículo ${link} `;
   prompt += `y un mensaje alentador de máximo 10 palabras sabiendo que el usuario obtuvo un puntaje de ${score}/100`;
 
   const openai = createOpenAI({ apiKey: apiKey });
