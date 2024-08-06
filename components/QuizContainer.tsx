@@ -32,6 +32,13 @@ const QuizContainer = () => {
 
   const setNextQuestion = () => {
     if (!quiz) throw new Error("No quiz loaded");
+    if (
+      quiz.questionsGenerated() ===
+      quiz.getSpecification().getNumberOfQuestions()
+    ) {
+      router.push(`/quizzes/${quiz?.getId()}/score`);
+      return;
+    }
     setIsLoading(true);
     nextQuestion()
       .then((question) => {
@@ -45,10 +52,6 @@ const QuizContainer = () => {
 
   const handleError = (err: Error) => {
     switch (true) {
-      case err instanceof QuizIsCompleteError: {
-        router.push(`/quizzes/${quiz?.getId()}/score`);
-        return;
-      }
       case err instanceof QuizNotFoundError: {
         return notFound();
       }
