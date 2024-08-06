@@ -1,6 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import { useQuiz } from "@/context/QuizContext";
+import { useRouter } from "next/navigation";
 
 export default function QuizLayout({
   params,
@@ -10,9 +11,10 @@ export default function QuizLayout({
   children: React.ReactNode;
 }) {
   const { quiz, loadQuiz } = useQuiz();
+  const router = useRouter();
 
   useEffect(() => {
-    loadQuiz(params.quiz_id).catch((err) => console.log("not found?", err));
+    loadQuiz(params.quiz_id).catch((err) => router.push(`/`));
   }, [params.quiz_id]);
 
   return (

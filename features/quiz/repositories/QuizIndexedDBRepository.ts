@@ -1,6 +1,6 @@
 "use client";
 import { initDB } from "@/lib/database";
-import { Quiz } from "@/features/quiz/domain/Quiz";
+import { Quiz, QuizNotFoundError } from "@/features/quiz/domain/Quiz";
 import { QuizFactory } from "@/features/quiz/domain/factories/QuizFactory";
 
 export class QuizIndexedDBRepository {
@@ -20,7 +20,7 @@ export class QuizIndexedDBRepository {
     const db = await this.dbPromise;
     const quiz = await db.get("quizzes", id);
     if (!quiz) {
-      throw new Error(`Quiz with id ${id} not found`);
+      throw new QuizNotFoundError();
     }
     return QuizFactory.createFromData(quiz) || null;
   }

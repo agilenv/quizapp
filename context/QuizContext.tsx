@@ -6,7 +6,6 @@ import AddQuestion from "@/features/quiz/usecases/AddQuestion";
 import GenerateQuestion from "@/features/quiz/usecases/GenerateQuestion";
 import { QuizRepository } from "@/features/quiz/repositories/QuizRepository";
 import GenerateQuiz from "@/features/quiz/usecases/GenerateQuiz";
-import PlayAgain from "@/features/quiz/usecases/PlayAgain";
 
 interface QuizContextProps {
   quiz: Quiz | null;
@@ -20,7 +19,6 @@ interface QuizContextProps {
     questionsType?: string[],
   ) => Promise<Quiz>;
   apiKey: string;
-  playAgain: () => Promise<Quiz>;
   flush: () => Promise<void>;
 }
 
@@ -37,7 +35,6 @@ export const QuizProvider: React.FC<{
   const answerQuestionUsecase = new AnswerQuestion();
   const generateQuestionUsecase = new GenerateQuestion();
   const generateQuizUsecase = new GenerateQuiz();
-  const playAgainUsecase = new PlayAgain(quizRepository);
 
   const loadQuiz = async (quizId: string) => {
     const loadedQuiz = await quizRepository.findById(quizId);
@@ -71,11 +68,6 @@ export const QuizProvider: React.FC<{
     );
   };
 
-  const playAgain = async (): Promise<Quiz> => {
-    if (!quiz) throw new Error("No quiz loaded");
-    return await playAgainUsecase.execute(quiz);
-  };
-
   const flush = async (): Promise<void> => {
     quizRepository.findAll().then((quizzes) => {
       quizzes.forEach((quiz) => quizRepository.delete(quiz.getId()));
@@ -91,7 +83,6 @@ export const QuizProvider: React.FC<{
         nextQuestion,
         generateFromLink,
         apiKey,
-        playAgain,
         flush,
       }}
     >

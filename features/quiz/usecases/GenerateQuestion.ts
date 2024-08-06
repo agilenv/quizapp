@@ -1,4 +1,4 @@
-import { Quiz } from "@/features/quiz/domain/Quiz";
+import { Quiz, QuizIsCompleteError } from "@/features/quiz/domain/Quiz";
 import {
   QuestionData,
   QuestionFactory,
@@ -13,7 +13,7 @@ import { generateAIQuestion } from "@/app/actions";
 export default class GenerateQuestion {
   public async execute(apiKey: string, quiz: Quiz): Promise<Question> {
     if (!quiz.meetSpecification()) {
-      throw new Error("Quiz is complete");
+      throw new QuizIsCompleteError();
     }
     const prompts: Prompter[] = [
       LecturePrompterFactory.create(quiz.getLecture()),

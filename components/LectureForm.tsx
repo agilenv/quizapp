@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useQuiz } from "@/context/QuizContext";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { useEffect, useState } from "react";
 
@@ -23,10 +23,18 @@ export function LectureForm() {
   const { toast } = useToast();
   const { flush } = useQuiz();
   const [isLoading, setIsLoading] = useState(false);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
+    console.log("flushing");
     flush();
-  }, []);
+    if (searchParams.has("errors")) {
+      toast({
+        variant: "destructive",
+        title: "Comprueba la API key proporcionada y vuelve a intentarlo",
+      });
+    }
+  }, [searchParams]);
 
   const formSchema = z.object({
     lecture: z.string().url("La URL debe ser un enlace válido"),

@@ -49,4 +49,7 @@ class Quiz {
   }
 }
 
-export { Quiz };
+class QuizIsCompleteError extends Error {}
+class QuizNotFoundError extends Error {}
+
+export { Quiz, QuizIsCompleteError, QuizNotFoundError };

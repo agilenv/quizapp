@@ -6,9 +6,13 @@ import {
   MultipleChoiceQuestion as MC,
   Question,
 } from "@/features/quiz/domain/questions";
-import { useRouter } from "next/navigation";
+import { useRouter, notFound } from "next/navigation";
 import { useQuiz } from "@/context/QuizContext";
 import Loading from "@/app/quizzes/[quiz_id]/loading";
+import {
+  QuizIsCompleteError,
+  QuizNotFoundError,
+} from "@/features/quiz/domain/Quiz";
 
 const QuizContainer = () => {
   const { quiz, setAnswer, nextQuestion } = useQuiz();
@@ -30,8 +34,24 @@ const QuizContainer = () => {
         setIsLoading(false);
       })
       .catch((err) => {
-        router.push(`/quizzes/${quiz?.getId()}/score`);
+        handleError(err);
       });
+  };
+
+  const handleError = (err: Error) => {
+    switch (true) {
+      case err instanceof QuizIsCompleteError: {
+        router.push(`/quizzes/${quiz?.getId()}/score`);
+        return;
+      }
+      case err instanceof QuizNotFoundError: {
+        return notFound();
+      }
+      default: {
+        router.push(`/?errors`);
+        return;
+      }
+    }
   };
 
   const onAnswer = (userAnswer: string): boolean => {
