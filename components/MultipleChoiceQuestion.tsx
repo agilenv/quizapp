@@ -76,7 +76,7 @@ export default function MultipleChoiceQuestion({
           disabled={!isAnswered}
           size="lg"
         >
-          {currentNumberOfQuestions + 1 === totalQuestions
+          {currentNumberOfQuestions === totalQuestions
             ? "Finalizar"
             : "Siguiente Pregunta"}
         </Button>
