@@ -26,7 +26,6 @@ export function LectureForm() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    console.log("flushing");
     flush();
     if (searchParams.has("errors")) {
       toast({
