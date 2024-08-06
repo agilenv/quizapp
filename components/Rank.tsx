@@ -121,7 +121,7 @@ export function Rank({
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col gap-6 text-sm">
-        <div className="flex items-center text-center px-8 gap-4 font-medium leading-none">
+        <div className="flex items-center text-center px-8 gap-4 font-medium leading-7">
           {cheerUpMsg}
         </div>
         <Button size="lg" className={"mt-6"} asChild>
