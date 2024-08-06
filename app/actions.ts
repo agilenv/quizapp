@@ -1,8 +1,11 @@
 "use server";
 
 import { generateObject } from "ai";
-import { createOpenAI, openai } from "@ai-sdk/openai";
+import { createOpenAI, openai, OpenAIProvider } from "@ai-sdk/openai";
 import { z } from "zod";
+import { Prompter } from "@/features/quiz/domain/Prompter";
+
+const defaultModel = "gpt-4o-mini";
 
 export async function getScoreNotes(
   apiKey: string,
@@ -16,7 +19,7 @@ export async function getScoreNotes(
 
   const openai = createOpenAI({ apiKey: apiKey });
   const { object: notes } = await generateObject({
-    model: openai("gpt-4o-mini"),
+    model: openai(defaultModel),
     prompt: prompt,
     schema: z.object({
       title: z.string().describe("Titulo del artículo"),
@@ -24,4 +27,35 @@ export async function getScoreNotes(
     }),
   });
   return { notes };
+}
+
+export async function generateAIQuestion(apiKey: string, prompts: Prompter[]) {
+  "use server";
+
+  const prompt = prompts.map((prompter) => prompter.getPrompt()).join("\n");
+  console.log(prompt);
+  const openai = createOpenAI({
+    apiKey: apiKey,
+  });
+
+  const { object: data } = await generateObject({
+    model: openai(defaultModel),
+    schema: z.object({
+      type: z.string().describe("El tipo de pregunta."),
+      text: z.string().describe("El texto de la pregunta."),
+      options: z
+        .array(z.string())
+        .describe("Un array de strings con las posibles respuestas."),
+      answer: z.object({
+        text: z.string().describe("El texto de la respuesta correcta."),
+        reason: z
+          .string()
+          .describe(
+            "Una breve explicación de por qué esa es la respuesta correcta.",
+          ),
+      }),
+    }),
+    prompt: prompt,
+  });
+  return { data };
 }

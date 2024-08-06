@@ -4,11 +4,11 @@ import {
   QuestionFactory,
 } from "@/features/quiz/domain/factories/QuestionFactory";
 import { Question } from "@/features/quiz/domain/questions";
-import { AIService } from "@/features/quiz/services/AIService";
 import { QuestionPrompterFactory } from "@/features/quiz/domain/factories/QuestionPrompterFactory";
 import { LecturePrompterFactory } from "@/features/quiz/domain/factories/LecturePrompterFactory";
 import { CustomPrompter } from "@/features/quiz/domain/prompts/CustomPrompter";
 import { Prompter } from "@/features/quiz/domain/Prompter";
+import { generateAIQuestion } from "@/app/actions";
 
 export default class GenerateQuestion {
   public async execute(apiKey: string, quiz: Quiz): Promise<Question> {
@@ -31,10 +31,8 @@ export default class GenerateQuestion {
         ),
       );
     }
-    const srv = new AIService();
-    const res = await srv.generate(apiKey, prompts);
-    const data = await res.json();
-    return QuestionFactory.createFromData(data);
+    const res = await generateAIQuestion(apiKey, prompts);
+    return QuestionFactory.createFromData(res.data);
   }
 
   private async mock(): Promise<Question> {
