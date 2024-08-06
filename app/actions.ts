@@ -1,25 +1,27 @@
 "use server";
 
-import { streamText } from "ai";
+import { generateObject } from "ai";
 import { createOpenAI, openai } from "@ai-sdk/openai";
-import { createStreamableValue } from "ai/rsc";
+import { z } from "zod";
 
-export async function generate(apiKey: string, input: string) {
-  const stream = createStreamableValue("");
+export async function getScoreNotes(
+  apiKey: string,
+  link: string,
+  score: number,
+) {
+  "use server";
 
-  (async () => {
-    const openai = createOpenAI({ apiKey });
-    const { textStream } = await streamText({
-      model: openai("gpt-4o-mini"),
-      prompt: input,
-    });
+  let prompt = `Genera un título para el siguiente artículo ${link} `;
+  prompt += `y un mensaje alentador de máximo 10 palabras sabiendo que el usuario obtuvo un puntaje de ${score}/100`;
 
-    for await (const delta of textStream) {
-      stream.update(delta);
-    }
-
-    stream.done();
-  })();
-
-  return { output: stream.value };
+  const openai = createOpenAI({ apiKey: apiKey });
+  const { object: notes } = await generateObject({
+    model: openai("gpt-4o-mini"),
+    prompt: prompt,
+    schema: z.object({
+      title: z.string().describe("Titulo del artículo"),
+      msg: z.string().describe("Un mensaje alentador, incluye un emoji"),
+    }),
+  });
+  return { notes };
 }
