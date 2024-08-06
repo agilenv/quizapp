@@ -19,9 +19,7 @@ export default function QuizLayout({
 
   return (
     quiz && (
-      <div className={"flex flex-col md:mt-14 items-center w-full"}>
-        {children}
-      </div>
+      <div className={"flex flex-col items-center w-full"}>{children}</div>
     )
   );
 }

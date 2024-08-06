@@ -13,12 +13,14 @@ import {
   QuizIsCompleteError,
   QuizNotFoundError,
 } from "@/features/quiz/domain/Quiz";
+import { Progress } from "@/components/ui/progress";
 
 const QuizContainer = () => {
   const { quiz, setAnswer, nextQuestion } = useQuiz();
   const [question, setQuestion] = useState<Question>();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
+  const [completedPercentage, setCompletedPercentage] = useState(0);
 
   useEffect(() => {
     setNextQuestion();
@@ -57,7 +59,15 @@ const QuizContainer = () => {
   const onAnswer = (userAnswer: string): boolean => {
     try {
       if (!question) throw new Error("No question selected");
-      return setAnswer(question, userAnswer);
+      if (!quiz) throw new Error("No quiz selected");
+
+      const isCorrect = setAnswer(question, userAnswer);
+      setCompletedPercentage(
+        (quiz?.questionsGenerated() /
+          quiz?.getSpecification().getNumberOfQuestions()) *
+          100,
+      );
+      return isCorrect;
     } catch (e) {
       console.error(e);
       return false;
@@ -69,7 +79,8 @@ const QuizContainer = () => {
       {isLoading || quiz === null ? (
         <Loading />
       ) : (
-        <>
+        <div className={"flex flex-col w-full max-w-4xl overflow-auto p-6"}>
+          <Progress value={completedPercentage} className={"h-2 mt-4"} />
           {question instanceof MC ? (
             <MultipleChoiceQuestion
               question={question.getText()}
@@ -81,7 +92,7 @@ const QuizContainer = () => {
               currentNumberOfQuestions={quiz?.questionsGenerated()}
             />
           ) : null}
-        </>
+        </div>
       )}
     </>
   );

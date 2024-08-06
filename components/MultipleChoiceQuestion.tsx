@@ -43,7 +43,7 @@ export default function MultipleChoiceQuestion({
   };
 
   return (
-    <div className="flex flex-col p-6 space-y-6 w-full max-w-4xl overflow-auto">
+    <div className="flex flex-col py-6 space-y-6">
       <h1 className="text-2xl font-bold text-center text-gray-800">
         {question}
       </h1>
