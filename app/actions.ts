@@ -30,7 +30,7 @@ export async function getScoreNotes(
   } catch (e) {
     return {
       notes: {
-        title: link,
+        title: "Link al artículo",
         msg: "¡Gran esfuerzo! Cada intento te hace mejor.",
       },
     };
