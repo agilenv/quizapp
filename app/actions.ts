@@ -3,7 +3,6 @@
 import { generateObject } from "ai";
 import { createOpenAI } from "@ai-sdk/openai";
 import { z } from "zod";
-import { Prompter } from "@/features/quiz/domain/Prompter";
 
 const defaultModel = "gpt-4o-mini";
 

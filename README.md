@@ -1,6 +1,6 @@
 # Quiz App
 
-Una aplicación que genera cuestionarios con inteligencia artificial a partir de un artículo web de interés. 
+Una aplicación que genera cuestionarios con inteligencia artificial a partir de un artículo web de interés.
 
 Las preguntas son de opción múltiple con una sola respuesta correcta y, al finalizar, muestra un puntaje basado en la cantidad de preguntas correctas.
 
