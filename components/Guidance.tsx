@@ -1,4 +1,4 @@
-export default function Guideness() {
+export default function Guidance() {
   return (
     <article className="my-10 px-6 text-sm items-center flex flex-col text-gray-700 text-center">
       <header className="mb-4">
