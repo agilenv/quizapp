@@ -31,7 +31,10 @@ export default class GenerateQuestion {
         ),
       );
     }
-    const res = await generateAIQuestion(apiKey, prompts);
+    const res = await generateAIQuestion(
+      apiKey,
+      prompts.map((prompter) => prompter.getPrompt()),
+    );
     return QuestionFactory.createFromData(res.data);
   }
 
