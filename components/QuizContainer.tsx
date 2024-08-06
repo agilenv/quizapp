@@ -33,7 +33,6 @@ const QuizContainer = () => {
   const setNextQuestion = () => {
     if (!quiz) throw new Error("No quiz loaded");
     setIsLoading(true);
-
     nextQuestion()
       .then((question) => {
         setQuestion(question);
@@ -60,7 +59,7 @@ const QuizContainer = () => {
     }
   };
 
-  const onAnswer = (question: Question, userAnswer: string): boolean => {
+  const onAnswer = (question: Question, userAnswer: string) => {
     try {
       if (!question) throw new Error("No question selected");
       if (!quiz) throw new Error("No quiz selected");
@@ -73,10 +72,7 @@ const QuizContainer = () => {
           quiz?.getSpecification().getNumberOfQuestions()) *
           100,
       );
-      return isCorrect;
-    } catch (e) {
-      return false;
-    }
+    } catch (e) {}
   };
 
   const handleNextQuestion = () => {
@@ -101,7 +97,7 @@ const QuizContainer = () => {
               />
             )
           )}
-          <div className="w-[100%] flex flex-col items-center md:flex-row flex-wrap my-6 gap-6 md:justify-around">
+          <div className="w-[100%] flex flex-col items-center md:flex-row flex-wrap gap-6 md:justify-around">
             <Button
               variant="outline"
               size="lg"

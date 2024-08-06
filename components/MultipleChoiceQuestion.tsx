@@ -13,16 +13,15 @@ export default function MultipleChoiceQuestionComponent({
   isAnswered,
 }: {
   question: MultipleChoiceQuestion;
-  onAnswer: (question: Question, userAnswer: string) => boolean;
+  onAnswer: (question: Question, userAnswer: string) => void;
   isAnswered: boolean;
 }) {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const [isCorrect, setIsCorrect] = useState(false);
 
   const handleOptionClick = (answer: string) => {
     if (!isAnswered) {
       setSelectedOption(answer);
-      setIsCorrect(onAnswer(question, answer || ""));
+      onAnswer(question, answer || "");
     }
   };
 
@@ -38,7 +37,7 @@ export default function MultipleChoiceQuestionComponent({
         {question.getOptions().map((answer) => (
           <div
             key={answer}
-            className={`p-4 text-center rounded-lg ${
+            className={`p-3 text-center rounded-lg ${
               isAnswered
                 ? question.getCorrectAnswer().isEqualTo(new Answer(answer))
                   ? "bg-green-100"
