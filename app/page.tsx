@@ -1,6 +1,6 @@
 import { LectureForm } from "@/components/LectureForm";
 import Logo from "@/components/Logo";
-import Guideness from "@/components/Guideness";
+import Guidance from "@/components/Guidance";
 import { Separator } from "@/components/ui/separator";
 
 export default function Home() {
@@ -23,7 +23,7 @@ export default function Home() {
       </div>
       <footer className={"flex-grow-0"}>
         <Separator />
-        <Guideness />
+        <Guidance />
       </footer>
     </div>
   );
