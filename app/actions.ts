@@ -16,16 +16,25 @@ export async function getScoreNotes(
   let prompt = `Genera un título de máximo 10 palabras para el siguiente artículo ${link} `;
   prompt += `y un mensaje alentador de máximo 10 palabras sabiendo que el usuario obtuvo un puntaje de ${score}/100`;
 
-  const openai = createOpenAI({ apiKey: apiKey });
-  const { object: notes } = await generateObject({
-    model: openai(defaultModel),
-    prompt: prompt,
-    schema: z.object({
-      title: z.string().describe("Titulo del artículo"),
-      msg: z.string().describe("Un mensaje alentador, incluye un emoji"),
-    }),
-  });
-  return { notes };
+  try {
+    const openai = createOpenAI({ apiKey: apiKey });
+    const { object: notes } = await generateObject({
+      model: openai(defaultModel),
+      prompt: prompt,
+      schema: z.object({
+        title: z.string().describe("Titulo del artículo"),
+        msg: z.string().describe("Un mensaje alentador, incluye un emoji"),
+      }),
+    });
+    return { notes };
+  } catch (e) {
+    return {
+      notes: {
+        title: link,
+        msg: "¡Gran esfuerzo! Cada intento te hace mejor.",
+      },
+    };
+  }
 }
 
 export async function generateAIQuestion(apiKey: string, prompts: string[]) {
