@@ -59,7 +59,7 @@ export function Rank({
   } satisfies ChartConfig;
 
   return (
-    <Card className="flex flex-col border-0 shadow-none">
+    <Card className="flex flex-col border-0 shadow-none mt-6">
       <CardHeader className="items-center pb-0">
         <CardTitle className="text-center leading-8 hover:text-blue-800">
           <Link href={link} target="_blank" rel="noreferrer noopener">
