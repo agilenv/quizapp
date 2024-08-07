@@ -4,7 +4,7 @@ Una aplicación que genera cuestionarios con inteligencia artificial a partir de
 
 Las preguntas son de opción múltiple con una sola respuesta correcta y, al finalizar, muestra un puntaje basado en la cantidad de respuestas correctas.
 
-![quizapp_demo](https://github.com/user-attachments/assets/90d3ffe9-2743-443e-8b69-4705299ac8e0)
+![QuizApp-6August2024-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/059bcfbd-db94-44b3-9323-866d6a299c50)
 
 ## Características
 
